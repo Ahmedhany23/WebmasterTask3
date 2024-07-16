@@ -1,0 +1,28 @@
+/* Global
+--------------------------*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+    --text: #fffffe;
+    --background: #16161a;
+    --primary: #16161a;
+    --secondary: #72757e;
+    --accent: #2cb67d;
+  }
+  
+/* Alert Popup animation
+--------------------------*/
+.alert{
+  left: -100%;
+  transition: left .7s;
+}
+.alert.show{
+  left: 0;
+  @starting-style {
+    left: -100%;
+  }
+}

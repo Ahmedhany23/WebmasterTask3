@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- css -->
+    <link rel="stylesheet" href="../css/output.css" />
+    <title>Shopping Cart | Page</title>
+  </head>
+  <body class="bg-background">
+    <!------------------
+        Navigation
+    -------------------->
+
+    <nav class="container mx-auto flex justify-between items-center py-5">
+      <p class="text-white text-3xl"><a href="/index.html">Home</a></p>
+      <ul class="flex gap-5">
+        <li>
+          <a
+            class="flex items-center gap-2 rounded-md bg-secondary px-5 py-2.5 text-xl font-medium text-white transition hover:bg-accent"
+            href="/auth/logout.html"
+          >
+            Logout
+          </a>
+        </li>
+        <li>
+          <a
+            class="rounded-md bg-gray-100/30 px-5 py-2.5 text-xl font-medium flex items-center sm:gap-2"
+            href="/page/cart.html"
+            >Cart</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!------------------
+        Shopping Cart
+    -------------------->
+
+    <main
+      class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4   gap-5 py-10 place-content-center justify-items-center"
+      id="cartItems"
+    >
+      <!-- Render SelectedProducts -->
+    </main>
+
+    <!-- Total Price  -->
+    <section class="container mx-auto flex justify-center items-center">
+      <div
+        class="w-[300px] bg-secondary flex flex-col sm:flex-row justify-between py-5 px-4"
+      >
+        <p class="text-text text-2xl">Total Price :</p>
+        <p id="totalprice" class="text-2xl text-text"></p>
+      </div>
+    </section>
+
+    <script src="cart.js"></script>
+  </body>
+</html>
