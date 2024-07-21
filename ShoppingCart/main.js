@@ -5,9 +5,9 @@ if (!localStorage.getItem("user")) {
 
 /* Elements */
 const ProductsCards = document.querySelector("#products");
-const ProductAdded = document.querySelector("#productAdded")
-/* Products Data */
+const ProductAdded = document.querySelector("#productAdded");
 
+/* Products Data */
 const products = [
   {
     id: 1,
@@ -51,54 +51,60 @@ const products = [
   },
 ];
 
-
 /* Products Render */
 function renderProducts() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
     ProductsCards.innerHTML = "" ;
-    products.map((product)=> {
-         const productCardElement = document.createElement('div');
-       productCardElement.className = 'card w-[250px] rounded-md shadow-xl bg-secondary pb-5';
-       productCardElement.innerHTML = `
-       <img
+    products.forEach((item) => {
+      const productInCart = cart.find(product => product.id === item.id);
+        const productCardElement = document.createElement('div');
+        productCardElement.className = 'card w-[250px] rounded-md shadow-xl bg-secondary pb-5';
+        productCardElement.innerHTML = `
+          <img
             class="h-[300px] mx-auto"
-            src=${product.url}
-            alt=${product.name}
+            src=${item.url}
+            alt=${item.name}
           />
           <div class="px-2 flex flex-col gap-5">
-            <p class="text-text text-2xl">${product.name}</p>
+            <p class="text-text text-2xl">${item.name}</p>
             <p class="font-medium text-text hover:text-laccent duration-200">
-              ${product.description}
+              ${item.description}
             </p>
             <p class="font-semibold text-lg text-text">
               <span class="font-thin text-sm mr-1">EGP</span>
-                ${product.price}
+              ${item.price}
             </p>
-            <button class="py-2.5 px-5 bg-white text-lg font-semibold hover:text-text hover:bg-accent" onclick="addToCart(${product.id})">Add To Cart</button>
+            ${productInCart ? `<p class="font-semibold text-lg text-text">Quantity: ${productInCart.quantity}</p>` : ''}
+            
+            <button class="py-2.5 px-5 bg-white text-lg font-semibold hover:text-text hover:bg-accent" onclick="addToCart(${item.id})">Add To Cart</button>
           </div>
-   `;
-
-   ProductsCards.append(productCardElement)
-
- } )
+        `;
+        
+        ProductsCards.append(productCardElement);
+    });
 }
 
-
 /* Add product to cart */
-
-function addToCart(productid) {
-
+function addToCart(productId) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const product = products.find(product => product.id === productid);
+    const productIndex = cart.findIndex(product => product.id === productId);
 
-    if (product) {
-        cart.push(product);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        ProductAdded.classList.add("show")
-        setTimeout(()=>{
-            ProductAdded.classList.remove("show")
-        },1000)
+    if (productIndex !== -1) {
+        cart[productIndex].quantity += 1;
+    } else {
+        const product = products.find(product => product.id === productId);
+        if (product) {
+          cart.push({ ...product, quantity: 1 });
+        }
     }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    ProductAdded.classList.add("show");
+    setTimeout(() => {
+        ProductAdded.classList.remove("show");
+    }, 1000);
+    renderProducts(); 
 }
 
 

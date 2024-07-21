@@ -9,7 +9,6 @@ if (!localStorage.getItem("user")) {
 
  /* Render CartItems */
 
-
  function renderCartItems () {
     const selectedproduct = JSON.parse(localStorage.getItem('cart')) || [] ; 
     CartItems.innerHTML = "";
@@ -31,19 +30,30 @@ if (!localStorage.getItem("user")) {
               <span class="font-thin text-sm mr-1">EGP</span>
                 ${item.price}
             </p>
+            <p class="font-semibold text-lg text-text">
+             quantity : ${item.quantity}
+            </p>
             <button class="text-white text-2xl bg-red-600 hover:bg-red-800"" onclick="DeleteBtn(${item.id})">Delete</button>
           </div>
    `;
        
    CartItems.append(productCardElement);
-   totalPrice += item.price;
+   totalPrice += item.price * item.quantity;
     } )
     TotalPriceElement.textContent = `${totalPrice}$`;
  }
 
-function DeleteBtn (itemId) {
+function DeleteBtn (productId) {
     let selectedProducts = JSON.parse(localStorage.getItem('cart')) || [];
-    selectedProducts = selectedProducts.filter(item => item.id !== itemId);
+    let productIndex = selectedProducts.findIndex(product => product.id === productId)
+    if (productIndex !== -1){
+      if(selectedProducts[productIndex].quantity > 1){
+        selectedProducts[productIndex].quantity -= 1;
+      }
+      else{
+        selectedProducts = selectedProducts.filter(product => product.id !== productId);
+      }
+    }
     localStorage.setItem('cart', JSON.stringify(selectedProducts));
     renderCartItems();
 
