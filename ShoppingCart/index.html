@@ -8,7 +8,6 @@
     <title>Shopping</title>
   </head>
   <body class="bg-background">
-
     <!------------------
         Navigation
     -------------------->
@@ -18,7 +17,7 @@
         <li>
           <a
             class="flex items-center gap-2 rounded-md bg-secondary px-5 py-2.5 text-xl font-medium text-white transition hover:bg-accent"
-            href="/auth/logout.html"
+            href="/pages/auth/logout.html"
           >
             Logout
           </a>
@@ -26,32 +25,41 @@
         <li>
           <a
             class="rounded-md bg-gray-100 px-5 py-2.5 text-xl font-medium hover:bg-secondary hover:text-text flex items-center sm:gap-2"
-            href="/page/cart.html"
+            href="/pages/cart.html"
             >Cart</a
           >
         </li>
       </ul>
     </nav>
 
-   <!------------------
+    <!------------------
         Shopping 
     -------------------->
 
     <section class="container mx-auto py-20 relative">
-      <div id="products" class="card-grid  grid gap-[30px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center justify-items-center py-20">
+      <div
+        id="products"
+        class="card-grid grid gap-[30px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center justify-items-center py-20"
+      >
         <!---------------
          Products render
         ------------------>
       </div>
       <div
-      id="productAdded"
-      class="alert  text-accent  absolute top-6  px-10 py-4 bg-text"
-    >
-      Product Added Successfully
-    </div>
+        id="productAdded"
+        class="alert text-accent absolute top-6 px-10 py-4 bg-text"
+      >
+        Product Added Successfully
+      </div>
+      <div
+        id="productRemoved"
+        class="alert text-white absolute top-6 px-10 py-4 bg-red-500"
+      >
+        Product Removed Successfully
+      </div>
     </section>
 
     <!-- Javascript -->
-     <script src="main.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

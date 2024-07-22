@@ -6,7 +6,7 @@ if (!localStorage.getItem("user")) {
 /* Elements */
 const ProductsCards = document.querySelector("#products");
 const ProductAdded = document.querySelector("#productAdded");
-
+const ProductRemoved = document.querySelector("#productRemoved")
 /* Products Data */
 const products = [
   {
@@ -70,10 +70,14 @@ function renderProducts() {
             <p class="font-medium text-text hover:text-laccent duration-200">
               ${item.description}
             </p>
-            <p class="font-semibold text-lg text-text">
+            <div class="flex justify-between items-center">
+             <p class="font-semibold text-lg text-text">
               <span class="font-thin text-sm mr-1">EGP</span>
               ${item.price}
             </p>
+             ${productInCart ? `<button class="font-semibold text-lg text-text bg-red-500 px-3" onclick="DeleteBtn(${item.id})">Delete</button>` : ''}
+            </div>
+           
             ${productInCart ? `<p class="font-semibold text-lg text-text">Quantity: ${productInCart.quantity}</p>` : ''}
             
             <button class="py-2.5 px-5 bg-white text-lg font-semibold hover:text-text hover:bg-accent" onclick="addToCart(${item.id})">Add To Cart</button>
@@ -83,6 +87,7 @@ function renderProducts() {
         ProductsCards.append(productCardElement);
     });
 }
+
 
 /* Add product to cart */
 function addToCart(productId) {
@@ -103,6 +108,30 @@ function addToCart(productId) {
     ProductAdded.classList.add("show");
     setTimeout(() => {
         ProductAdded.classList.remove("show");
+    }, 1000);
+    renderProducts(); 
+}
+
+
+/* DeleteBtn cart */
+function DeleteBtn(productId) {
+  let selectedProducts = JSON.parse(localStorage.getItem("cart")) || [];
+  let productIndex = selectedProducts.findIndex(
+    (product) => product.id === productId
+  );
+  if (productIndex !== -1) {
+    if (selectedProducts[productIndex].quantity > 1) {
+      selectedProducts[productIndex].quantity -= 1;
+    } else {
+      selectedProducts = selectedProducts.filter(
+        (product) => product.id !== productId
+      );
+    }
+  }
+    localStorage.setItem("cart", JSON.stringify(selectedProducts));
+    ProductRemoved.classList.add("show");
+    setTimeout(() => {
+        ProductRemoved.classList.remove("show");
     }, 1000);
     renderProducts(); 
 }

@@ -16,11 +16,9 @@ function handleLogin(e) {
   if (localStorage.getItem("user")) {
     SuccessMessage.classList.add("show");
     setTimeout(()=>{
-      window.location.href = "../index.html";
+      window.location.href = "../../index.html";
       SuccessMessage.classList.remove("show");
     },2000)
-        
-
 }
 }
 
@@ -28,7 +26,7 @@ function handleLogin(e) {
 //if the user already logged in redirect to home page
 function checkUserLoggedIn() {
   if (localStorage.getItem("user")) {
-     window.location.href = "../index.html";
+     window.location.href = "../../index.html";
 }
 }
 checkUserLoggedIn();
