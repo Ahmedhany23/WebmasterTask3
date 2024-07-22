@@ -1,6 +1,6 @@
 /* IF User is not Logged in redirect To login */
 if (!localStorage.getItem("user")) {
-  window.location.href = "/auth/login.html";
+  window.location.href = "/pages/auth/login.html";
 }
 
 /* Elements */
